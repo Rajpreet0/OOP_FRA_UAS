@@ -20,7 +20,7 @@ class Bruch{
 
     // Mit dieser Funktion könnne die Brüche ausgegeben werden
     void ausgeben(){
-       std::cout << " Der Bruch ist (" << this->zaehler << "/" << this->nenner << ")" << std::endl;
+       std::cout << "\n\tDer Bruch ist --------- (" << this->zaehler << "/" << this->nenner << ") ---------\n" << std::endl;
     }
 
     // Hier werden zwei eingegebene Brüche multipliziert
@@ -89,6 +89,68 @@ class Bruch{
         nenner = nenner / teiler;
     }
 
+    int text_decision(int number){
+        std::cout << "\nDas sind deine Optionen: \n" << std::endl;
+        std::cout << "\t(1) Multiplikation berechenen" << std::endl;
+        std::cout << "\t(2) Division berechenen" << std::endl;
+        std::cout << "\t(3) Addition berechenen" << std::endl;
+        std::cout << "\t(4) Subtraktion berechenen" << std::endl;
+        std::cout << "\t(5) Den Bruch kürzen \n" << std::endl;
+        std::cout << "Bitte wähle eine Option aus mit der Nummer ";
+        std::cin  >> number;
+
+        return number;
+    }
+
+    void decision(Bruch& anderer_bruch){
+        int decision = 0;
+
+        decision = text_decision(decision);
+
+        if(decision == 1){
+            Bruch ergebnis_multi = this->multiplizieren(anderer_bruch);
+            std::cout << "Wenn wir beide Brüche Multiplizieren dann ergbit es";
+            ergebnis_multi.ausgeben();
+        }else if(decision == 2){
+            Bruch ergebnis_divi = this->divideren(anderer_bruch);
+            std::cout << "Wenn wir beide Brüche Dividern dann ergbit es";
+            ergebnis_divi.ausgeben();
+        }else if(decision == 3){
+            Bruch ergebnis_addi = this->addieren(anderer_bruch);
+            std::cout << "Wenn wir beide Brüche Addieren dann ergbit es";
+            ergebnis_addi.ausgeben();
+        }else if(decision == 4){
+            Bruch ergebnis_subt = this->subtrahieren(anderer_bruch);
+            std::cout << "Wenn wir beide Brüche Subtrahieren dann ergbit es";
+            ergebnis_subt.ausgeben();
+        }else if(decision == 5){
+            shorting_decision(anderer_bruch);
+        }else{
+            std::cout << "\n***************Fehlerfahte Eingabe!***************\n" << std::endl;
+        }
+    }
+
+    void shorting_decision(Bruch& anderer_bruch){
+
+        int shorting = 0;
+
+        std::cout << "\nDas sind deine Optionen: \n" << std::endl;
+        std::cout << "\t(1) Den ersten Bruch kürzen" << std::endl;
+        std::cout << "\t(2) Den zweiten Bruch kürzen \n" << std::endl;
+        std::cout << "Bitte wähle eine Option aus mit der Nummer ";
+        std::cin  >> shorting;
+
+        if(shorting == 1){
+            this->shorting();
+            this->ausgeben();
+        }else if(shorting == 2){
+            anderer_bruch.shorting();
+            anderer_bruch.ausgeben();
+        }else{
+            std::cout << "\n***************Fehlerfahte Eingabe!***************\n" << std::endl;
+        }
+    }
+
 };
 
 int main(){
@@ -96,28 +158,12 @@ int main(){
     Bruch viertel;
     Bruch anderer_bruch;   
 
-    /*+++++++++++++++++ Aufrufen der Funktionen ++++++++++++++++++++*/
 
     viertel.einlesen();
     anderer_bruch.einlesen();
 
-    Bruch ergebnis_multi = viertel.multiplizieren(anderer_bruch);
-    std::cout << "Wenn wir beide Brüche Multiplizieren dann ergbit es";
-    ergebnis_multi.ausgeben();
-  
+    viertel.decision(anderer_bruch);
 
-    Bruch ergebnis_divi = viertel.divideren(anderer_bruch);
-    std::cout << "Wenn wir beide Brüche Dividern dann ergbit es";
-    ergebnis_divi.ausgeben();
-
-    
-    Bruch ergebnis_addi = viertel.addieren(anderer_bruch);
-    std::cout << "Wenn wir beide Brüche Addieren dann ergbit es";
-    ergebnis_addi.ausgeben();
-
-    Bruch ergebnis_subt = viertel.subtrahieren(anderer_bruch);
-    std::cout << "Wenn wir beide Brüche Subtrahieren dann ergbit es";
-    ergebnis_subt.ausgeben();
 
     return 0;
 }
